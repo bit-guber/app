@@ -1,6 +1,8 @@
 from flask import Flask, request, Response
-from music import *
-
+try:
+    from music import *
+except:
+    from api.music import *
 app = Flask(__name__)
 
 
