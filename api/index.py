@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route( "/playlistSongs", methods = [ 'POST' ] )
 def get_PlaylistSongs():
     try:
-        return getPlaylistSongs( request.form )
+        return getPlaylistSongs( request.json )
     except KeyError:
         return Response( '', status=400 )
 
@@ -26,7 +26,7 @@ def get_samplePlaylists():
 
 @app.route("/test", methods = [ 'POST', 'GET' ])
 def test():
-    print( request.form )
+    print( request.json )
     return "<p>j<p>"
 
 @app.route("/")
