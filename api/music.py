@@ -34,8 +34,8 @@ def playlistWrapper(_id):
     return temp
     
 def getSampler():
-    temp = dict()
+    temp = { 'data':[] }
     for name in [ 'hits', 'latest', 'best' ]:
-        keys = random.sample( playlists.keys(), 5 )
-        temp[name] = list(map( playlistWrapper, keys ))
+        keys = random.sample( list(playlists.keys()), 5 )
+        temp['data'].append(  { name: list(map( playlistWrapper, keys )) }  )
     return temp 
