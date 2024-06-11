@@ -19,7 +19,7 @@ def get_PlaylistSongs():
         return getPlaylistSongs( request.json )
     except KeyError as e:
         print(e)
-        return Response( '', status=400 )
+        return Response( '', status=401 )
 
 @app.route( "/homepage", methods = ['POST', 'GET'] )
 def get_samplePlaylists():
