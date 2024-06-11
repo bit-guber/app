@@ -1,6 +1,6 @@
 import json
 import random
-
+from flask import Response
 
 path = "resources/"
 totalSongSize = 5
@@ -12,10 +12,13 @@ artists = json.load( open(path + 'artists.json', 'r') )
 
 def getPlaylistSongs( body ):
     temp = dict()
-    _id = body['id']
+    try:
+        currentPlaylist = playlists[ str(body['id']) ]
+    except:
+        return Response( status=210 )
     index = int(body['np'])*totalSongSize                           # npage * limitSize
-    temp['lp'] = index+totalSongSize < len( playlists[_id]['g'] )   # last_page
-    temp['data'] = list( map( songWrapper, playlists[_id]['g'][ index:totalSongSize+index ] ) )
+    temp['lp'] = index+totalSongSize < len( currentPlaylist['g'] )   # last_page
+    temp['data'] = list( map( songWrapper, currentPlaylist['g'][ index:totalSongSize+index ] ) )
     return temp
 
 def songWrapper(_id):
