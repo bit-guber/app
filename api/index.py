@@ -26,6 +26,7 @@ def get_song():
             SongRes.headers.set( "Song-Name", name )
             return SongRes
         else:
+            print(res.status_code, res.reason)
             return Response( '', status=402 )
     except KeyError as e:
         print(e)
