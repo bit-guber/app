@@ -26,7 +26,7 @@ def get_song():
             SongRes.headers.set( "Song-Name", name )
             return SongRes
         else:
-            print(res.status_code, res.reason)
+            print(res.status_code, res.reason, url)
             return Response( '', status=402 )
     except KeyError as e:
         print(e)
@@ -39,16 +39,21 @@ def get_PlaylistSongs():
     except KeyError as e:
         print(e)
         return Response( '', status=401 )
-
-@app.route( "/homepage", methods = ['POST', 'GET'] )
-def get_samplePlaylists():
-    return getSampler()
-
+    
 @app.route( "/getMusicImage", methods=['POST']  )
 def getMusicImage():
     res = request.json
     return getImage( res['t'], res['id'], res['s'] )
 
+@app.route( "/homepage", methods = ['POST', 'GET'] )
+def get_samplePlaylists():
+    temp = getArranger()
+    temp['n']=12356789
+    return temp
+
+@app.route( "/Todaynews", methods = [ 'POST' ] )
+def getTodayNews():
+    return { 'wn':[ 'war', 'rebel', 'threat' ], 'lp':[ 'election', 'school', 'work' ], 'ln':['accident', 'block', 'bad weather'],  'wp':[ 'new vaccine', 'growth', 'new discovery' ] }
 
 @app.route("/")
 def hello_world():

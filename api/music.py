@@ -1,6 +1,6 @@
 import json
 import random
-
+import gc
 
 from flask import Response, redirect
 
@@ -61,4 +61,17 @@ def getSampler():
     for name in [ 'hits', 'latest', 'best' ]:
         keys = random.sample( list(playlists.keys()), 5 )
         temp[name] = keys
+    return temp 
+
+playlists_keys_list = list(playlists.keys())
+
+temp = { 'data':[] }
+for i, name in enumerate([ 'hits', 'latest', 'best' ]):
+    count = i*5
+    keys = playlists_keys_list[count:count+5]
+    temp[name] = keys
+del playlists_keys_list
+gc.collect()
+
+def getArranger():
     return temp 
