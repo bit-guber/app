@@ -22,6 +22,7 @@ def get_song_name():
 
 @app.route( "/getSong", methods = ['POST'] )
 def get_song():
+    global songPredetectCount
     try:
         name, url = getSongPath( request.json )
         res = session.get( url, headers=jioSaavan_req_headers )
