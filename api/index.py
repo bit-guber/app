@@ -22,9 +22,13 @@ def get_song():
         name, url = getSongPath( request.json )
         res = session.get( url, headers=jioSaavan_req_headers )
         if res.ok:
-            SongRes = redirect( res.json()['auth_url'] )
-            SongRes.headers.set( "Song-Name", name )
-            return SongRes
+            try:
+                SongRes = redirect( res.json()['auth_url'] )
+                SongRes.headers.set( "Song-Name", name )
+                return SongRes
+            except:
+                print(res.status_code, res.text, res.headers )
+                return Response( "", status=402 )
         else:
             print(res.status_code, res.reason, url)
             return Response( '', status=402 )
