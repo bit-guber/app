@@ -27,7 +27,7 @@ def get_song():
                 SongRes.headers.set( "Song-Name", name )
                 return SongRes
             except:
-                print(res.status_code, res.text, res.headers )
+                print(res.status_code, res.text, res.headers, url )
                 return Response( "", status=402 )
         else:
             print(res.status_code, res.reason, url)
