@@ -34,7 +34,7 @@ def get_song():
                 songPredetectCount+=1
                 print(res.status_code, res.text, res.headers, url )
                 song_issues.append( [ res.status_code, res.text, res.headers, name, request.json ] )
-                return Response( "", status=402 )
+                return Response( "", status=202 )
         else:
             print(res.status_code, res.reason, url)
             return Response( '', status=402 )
