@@ -5,7 +5,9 @@ try:
 except:
     from api.music import *
 
-song_issues = [] 
+song_issues = []
+songPredetectCount = 0
+
 app = Flask(__name__)
 session = SendRequesttoWeb.session()
 jioSaavan_req_headers = { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" }
@@ -29,14 +31,10 @@ def get_song():
                 SongRes.headers.set( "Song-Name", name )
                 return SongRes
             except:
-                try:
-                    SongRes = redirect( res.json()['auth_url'] )
-                    SongRes.headers.set( "Song-Name", name )
-                    return SongRes
-                except:
-                    print(res.status_code, res.text, res.headers, url )
-                    song_issues.append( [ res.status_code, res.text, res.headers, name, request.json ] )
-                    return Response( "", status=402 )
+                songPredetectCount+=1
+                print(res.status_code, res.text, res.headers, url )
+                song_issues.append( [ res.status_code, res.text, res.headers, name, request.json ] )
+                return Response( "", status=402 )
         else:
             print(res.status_code, res.reason, url)
             return Response( '', status=402 )
