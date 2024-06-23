@@ -1,16 +1,17 @@
 from flask import Flask, request, Response, redirect
 import requests as SendRequesttoWeb
+# from fake_useragent import UserAgent
+# ua = UserAgent()
 try:
     from music import *
 except:
     from api.music import *
 
-song_issues = []
-songPredetectCount = 0
+
 
 app = Flask(__name__)
 session = SendRequesttoWeb.session()
-jioSaavan_req_headers = { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" }
+# jioSaavan_req_headers = { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" }
 
 @app.route( "/getSongName", methods = [ 'POST' ] )
 def get_song_name():
@@ -22,26 +23,7 @@ def get_song_name():
 
 @app.route( "/getSong", methods = ['POST'] )
 def get_song():
-    global songPredetectCount
-    try:
-        name, url = getSongPath( request.json )
-        res = session.get( url, headers=jioSaavan_req_headers )
-        if res.ok:
-            try:
-                SongRes = redirect( res.json()['auth_url'] )
-                SongRes.headers.set( "Song-Name", name )
-                return SongRes
-            except:
-                songPredetectCount+=1
-                print(res.status_code, res.text, res.headers, url )
-                song_issues.append( [ res.status_code, res.text, res.headers, name, request.json ] )
-                return Response( "", status=202 )
-        else:
-            print(res.status_code, res.reason, url)
-            return Response( '', status=402 )
-    except KeyError as e:
-        print(e)
-        return Response( '', status=401 )
+    return getSongPath( request.json )
 
 @app.route( "/playlistSongs", methods = [ 'POST' ] )
 def get_PlaylistSongs():
