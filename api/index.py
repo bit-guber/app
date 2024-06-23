@@ -41,12 +41,7 @@ def getMusicImage():
 @app.route( "/homepage", methods = ['POST', 'GET'] )
 def get_samplePlaylists():
     temp = getArranger()
-    temp['n']=12356789
     return temp
-
-@app.route( "/Todaynews", methods = [ 'POST' ] )
-def getTodayNews():
-    return { 'wn':[ 'war', 'rebel', 'threat' ], 'lp':[ 'election', 'school', 'work' ], 'ln':['accident', 'block', 'bad weather'],  'wp':[ 'new vaccine', 'growth', 'new discovery' ] }
 
 @app.route("/")
 def hello_world():
