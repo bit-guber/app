@@ -15,7 +15,7 @@ def getSongTitle(body):
 
 def getSongPath( body ):
     # return songs[body['id']]['t'], f"https://www.jiosaavn.com/api.php?__call=song.generateAuthToken&url={songs[body['id']]['emu']}&bitrate={body['b']}&api_version=4&_format=json&ctx=web6dot0&_marker=0"
-    return songs[body['id']]['emu']
+    return {'path':songs[body['id']]['emu']}
 def getPlaylistSongs( body ):
     temp = dict()
     try:
